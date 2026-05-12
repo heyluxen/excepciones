@@ -28,3 +28,30 @@ El bloque try envuelve el código que podría fallar. Cuando ocurre el ZeroDivis
 - Se ejecuta el print dentro del except
 
 - El programa termina sin mostrar ningún resultado de división
+
+# Ejemplo 2 - Excepciones especificas
+
+```python
+try:
+    numero = int(input("Introduce un número: "))
+    resultado = 100 / numero
+    print(f"100 dividido por {numero} es {resultado}")
+except ZeroDivisionError:
+    print("No puedes dividir entre cero.")
+except ValueError:
+    print("Debes introducir un número válido.")
+```
+
+
+## Explicación
+En este código hay dos posibles excepciones que pueden ocurrir.
+
+Primera excepción posible: ValueError. Ocurre en la línea numero = int(input("Introduce un número: ")) cuando el usuario escribe algo que no es un número. Por ejemplo, si escribe "hola" o "tres", la función int() no puede convertir ese texto a número entero y lanza un ValueError.
+
+Segunda excepción posible: ZeroDivisionError. Ocurre en la línea resultado = 100 / numero cuando el usuario introduce el número 0. Dividir 100 entre 0 no está permitido en matemáticas, por lo que Python lanza un ZeroDivisionError.
+
+Lo importante de este ejemplo es que cada tipo de error tiene su propio bloque except. Si ocurre un ValueError, se ejecuta el primer except y muestra un mensaje sobre entrada inválida. Si ocurre un ZeroDivisionError, se ejecuta el segundo except y muestra un mensaje sobre división entre cero. Si no ocurre ninguna excepción, se ejecuta el print del resultado.
+
+## Salida
+![Salida 2](images/captura2.png)
+
