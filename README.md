@@ -55,3 +55,43 @@ Lo importante de este ejemplo es que cada tipo de error tiene su propio bloque e
 ## Salida
 ![Salida 2](images/captura2.png)
 
+# Ejemplo 3 - Accediendo a la información de la excepción
+
+```python
+try:
+    with open("archivo_inexistente.txt", "r") as archivo:
+        contenido = archivo.read()
+except FileNotFoundError as error:
+    print(f"Error:{error}")
+    print("Creando un archivo nuevo...")
+    with open("archivo_inexistente.txt", "w") as archivo:
+        archivo.write("Este es un archivo nuevo")
+```
+
+## Explicación
+En este código se trabaja con archivos, una operación que comúnmente genera excepciones.
+
+El bloque try intenta abrir un archivo llamado "archivo_inexistente.txt" en modo lectura ("r"). Si el archivo no existe en la carpeta del programa, Python no puede abrirlo y genera una excepción de tipo FileNotFoundError.
+
+La novedad de este ejemplo es el uso de "as error" después del tipo de excepción. Esto captura el objeto de la excepción y lo guarda en una variable llamada error. Dentro del bloque except podemos acceder a ese objeto para ver información detallada del error, como el mensaje original que Python habría mostrado.
+
+Cuando se captura el error, el programa no solo muestra el mensaje de error, sino que también crea el archivo que faltaba en modo escritura ("w") y escribe contenido dentro de él. Así, la próxima vez que se ejecute el programa, el archivo ya existirá.
+
+## Salida
+![Salida ejemplo 3](images/captura3.png)
+
+## ¿Por qué da esa salida?
+Cuando se ejecuta este programa por primera vez en una carpeta donde no existe el archivo "archivo_inexistente.txt", ocurre lo siguiente:
+
+- Paso 1: El bloque try intenta abrir el archivo en modo lectura.
+- Paso 2: Python busca el archivo y no lo encuentra.
+- Paso 3: Python genera una excepción FileNotFoundError con un mensaje que dice algo como "[Errno 2] No such file or directory: 'archivo_inexistente.txt'".
+- Paso 4: La excepción se captura en el except y se guarda en la variable error.
+- Paso 5: Se ejecuta print(f"Error:{error}") que muestra el mensaje original del error.
+- Paso 6: Se muestra "Creando un archivo nuevo..."
+- Paso 7: Se abre el mismo archivo pero ahora en modo escritura ("w"), lo que CREA el archivo si no existe.
+- Paso 8: Se escribe "Este es un archivo nuevo" dentro del archivo.
+- Paso 9: El programa termina.
+
+Después de ejecutar el programa una vez, el archivo queda creado en la carpeta. Si se ejecuta nuevamente, ya no se generará la excepción porque el archivo existe.
+
