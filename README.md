@@ -95,3 +95,40 @@ Cuando se ejecuta este programa por primera vez en una carpeta donde no existe e
 
 Después de ejecutar el programa una vez, el archivo queda creado en la carpeta. Si se ejecuta nuevamente, ya no se generará la excepción porque el archivo existe.
 
+# Ejemplo 4 - Combinando multiples excepciones
+
+```python
+try:
+    # Intentamos abrir y leer un archivo
+    archivo = open("datos.txt", "r")
+    valor = int(archivo.readline().strip())
+    resultado = 100 / valor
+except (FileNotFoundError, ValueError, ZeroDivisionError) as e:
+    print(f"Ocurrió un error:{type(e).__name__}")
+    print(f"Descripción:{e}")
+```
+
+## Explicación
+Este código muestra cómo agrupar varios tipos de excepciones en un SOLO bloque except usando una tupla.
+
+Dentro del bloque try hay tres operaciones que pueden fallar de diferentes maneras.
+
+Primera operación: archivo = open("datos.txt", "r"). Si el archivo "datos.txt" no existe, se genera FileNotFoundError.
+
+Segunda operación: valor = int(archivo.readline().strip()). Si el archivo está vacío o contiene texto que no es un número, se genera ValueError.
+
+Tercera operación: resultado = 100 / valor. Si el valor leído del archivo es 0, se genera ZeroDivisionError.
+
+En lugar de escribir tres bloques except separados (uno para cada error), se agrupan los tres tipos de excepción en una tupla: (FileNotFoundError, ValueError, ZeroDivisionError). Si ocurre CUALQUIERA de estos tres errores, se ejecuta el mismo bloque except.
+
+Dentro del except se usa "as e" para capturar el objeto de la excepción. La función type(e).name devuelve el nombre del tipo de error que ocurrió (por ejemplo "FileNotFoundError", "ValueError" o "ZeroDivisionError"). Esto permite saber exactamente qué error pasó aunque todos se manejen en el mismo lugar.
+
+## Salida 
+![Salida ejemplo 4](images/captura4.png)
+
+## ¿Por qué da esa salida?
+- Paso 1: try intenta abrir "datos.txt".
+- Paso 2: El archivo no existe, Python genera FileNotFoundError.
+- Paso 3: Como FileNotFoundError está en la tupla, se ejecuta el except.
+- Paso 4: type(e).name devuelve "FileNotFoundError".
+Paso 5: e contiene el mensaje original del error.
