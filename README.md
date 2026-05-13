@@ -293,3 +293,19 @@ except IndexError:
 
 ## Explicación
 La lista tiene solo 3 elementos, con índices 0, 1 y 2. Se intenta acceder al índice 10, que no existe. Python genera un IndexError. El except lo captura y muestra el mensaje.
+
+# Ejemplo 12 - Excepciones relacionadas con índices y claves: KeyError
+
+```python
+try:
+    diccionario = {"nombre": "Ana", "edad": 25}
+    valor = diccionario["telefono"]  # Intentar acceder a una clave inexistente
+except KeyError:
+    print("La clave 'telefono' no existe en el diccionario")
+```
+
+## Salida
+![Salida ejemplo 12](images/captura12.png)
+
+## Explicación
+El diccionario tiene las claves "nombre" y "edad", pero no tiene la clave "telefono". Al intentar acceder a ella, Python genera un KeyError. El except captura el error y muestra el mensaje.
