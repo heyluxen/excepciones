@@ -249,3 +249,17 @@ except OverflowError:
 ## Explicación
 El programa intenta calcular 10 elevado a un millón. Ese número es tan enorme que Python no puede representarlo, por lo que genera un OverflowError. El except captura el error y muestra el mensaje.
 
+# Ejemplo 9 - Excepciones relacionadas con tipos de datos: TypeError
+
+```python
+try:
+    resultado = "42" + 10  # Intentar sumar un string y un entero
+except TypeError:
+    print("No se pueden sumar tipos diferentes")
+```
+
+## Salida
+![Salida ejemplo 9](images/captura9.png)
+
+## Explicación
+El programa intenta sumar un string "42" y un número entero 10. Python no permite sumar tipos de datos diferentes, por lo que genera un TypeError. El except captura el error y muestra el mensaje.
