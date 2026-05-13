@@ -170,3 +170,53 @@ Si la conversión es exitosa, se verifica que la edad no sea negativa. Si lo es,
 
 - "18" es un número válido y positivo, por eso el programa muestra la edad y termina.
 
+# Ejemplo 6 - Buenas prácticas
+
+```python
+# Mal ejemplo: bloque try demasiado grande
+try:
+    archivo = open("datos.txt", "r")
+    contenido = archivo.read()
+    numeros = [int(x) for x in contenido.split()]
+    resultado = sum(numeros) / len(numeros)
+    print(f"El promedio es:{resultado}")
+    archivo.close()
+except:
+    print("Ocurrió un error")
+
+# Buen ejemplo: bloques try específicos
+try:
+    archivo = open("datos.txt", "r")
+except FileNotFoundError:
+    print("El archivo 'datos.txt' no existe")
+else:
+    try:
+        contenido = archivo.read()
+        numeros = [int(x) for x in contenido.split()]
+    except ValueError:
+        print("El archivo contiene datos que no son números")
+    else:
+        try:
+            resultado = sum(numeros) / len(numeros)
+            print(f"El promedio es:{resultado}")
+        except ZeroDivisionError:
+            print("El archivo está vacío, no se puede calcular el promedio")
+    finally:
+        archivo.close()
+```
+
+## Error original y corrección
+El error en el código original es que usaba "return" dentro de los bloques except. El return solo funciona dentro de una función, pero este código no está dentro de ninguna función. Al ejecutarlo, Python mostraría un error "SyntaxError: 'return' outside function".
+
+La corrección consiste en eliminar los return y reestructurar el código usando else y finally. Ahora el archivo se cierra siempre en el finally, y los errores se manejan sin necesidad de return.
+
+## Explicación
+El mal ejemplo usa un solo try enorme y un except genérico. Si ocurre cualquier error (archivo no existe, datos no numéricos, división por cero, etc.), solo muestra "Ocurrió un error" sin decir qué pasó realmente.
+
+El buen ejemplo divide el código en pequeños bloques try. Cada bloque maneja un error específico: FileNotFoundError si falta el archivo, ValueError si los datos no son números, ZeroDivisionError si el archivo está vacío. Además, el finally asegura que archivo.close() se ejecute siempre.
+
+## Salida
+![Salida ejemplo 6](images/captura6.png)
+
+El programa muestra dos mensajes porque dentro del mismo archivo hay dos ejemplos. Primero se ejecuta el "mal ejemplo", que usa un except genérico y solo dice "Ocurrió un error" sin importar qué falló. Luego se ejecuta el "buen ejemplo", que captura específicamente FileNotFoundError y muestra "El archivo 'datos.txt' no existe". Ambos mensajes aparecen porque son dos códigos distintos uno detrás del otro.
+
