@@ -340,3 +340,19 @@ except PermissionError:
 
 ## Explicación
 El código está diseñado para mostrar PermissionError al intentar escribir en un archivo protegido como "/etc/passwd". Pero en Windows esa ruta no existe, por lo que el error que sale es FileNotFoundError.
+
+# Ejemplo 15 - Excepciones relacionadas con atributos y nombres: AttributeError
+
+```python
+try:
+    texto = "Hola"
+    longitud = texto.size  # El método correcto sería len(texto) o texto.__len__()
+except AttributeError:
+    print("El objeto string no tiene el atributo 'size'")
+```
+## Salida
+![Salida ejemplo 15](images/captura15.png)
+
+## Explicación
+El programa intenta acceder al atributo "size" de un string. Los strings en Python no tienen un atributo llamado "size" (el correcto es len(texto) o el método .len()). Por eso Python genera un AttributeError. El except captura el error y muestra el mensaje.
+
