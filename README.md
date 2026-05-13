@@ -220,3 +220,16 @@ El buen ejemplo divide el código en pequeños bloques try. Cada bloque maneja u
 
 El programa muestra dos mensajes porque dentro del mismo archivo hay dos ejemplos. Primero se ejecuta el "mal ejemplo", que usa un except genérico y solo dice "Ocurrió un error" sin importar qué falló. Luego se ejecuta el "buen ejemplo", que captura específicamente FileNotFoundError y muestra "El archivo 'datos.txt' no existe". Ambos mensajes aparecen porque son dos códigos distintos uno detrás del otro.
 
+# Ejemplo 7 - Tipos comunes: ZeroDivisionError
+
+```python
+try:
+    resultado = 5 / 0
+except ZeroDivisionError:
+    print("No es posible dividir entre cero")
+```
+## Salida
+![Salida ejemplo 7](images/captura7.png)
+
+## Explicación
+El programa intenta dividir 5 entre 0. Como dividir por cero no está permitido, Python genera un ZeroDivisionError. El bloque except captura específicamente ese error y muestra el mensaje "No es posible dividir entre cero". Sin el try-except, el programa habría terminado con un mensaje de error rojo.
