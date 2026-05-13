@@ -312,14 +312,31 @@ El diccionario tiene las claves "nombre" y "edad", pero no tiene la clave "telef
 
 # Ejemplo 13 - Excepciones relacionadas con archivos: FileNotFoundError
 
+```python
 try:
     with open("archivo_inexistente.txt", "r") as archivo:
         contenido = archivo.read()
 except FileNotFoundError:
     print("El archivo no existe")
+```
 
 ## Salida
 (No se muestra nada)
 
 ## Explicación
 No se ve ningún mensaje, significa que el archivo "archivo_inexistente.txt" ya existe. El programa lo abre sin problemas y no ocurre ninguna excepción, por eso el except no se ejecuta y no se imprime nada. Para que aparezca el mensaje, el archivo no debe existir.
+
+# Ejemplo 14 - Excepciones relacionadas con archivos: PermissionError
+
+```python
+try:
+    with open("/etc/passwd", "w") as archivo:  # Intentar escribir en un archivo protegido
+        archivo.write("datos")
+except PermissionError:
+    print("No tienes permisos para modificar este archivo")
+```
+## Salida
+![Salida ejemplo 14](images/captura14.png)
+
+## Explicación
+El código está diseñado para mostrar PermissionError al intentar escribir en un archivo protegido como "/etc/passwd". Pero en Windows esa ruta no existe, por lo que el error que sale es FileNotFoundError.
