@@ -398,3 +398,20 @@ except ModuleNotFoundError:
 
 ## Explicación
 El programa intenta importar un módulo llamado "modulo_que_no_existe" que no está instalado ni existe en Python. Python genera ModuleNotFoundError (que es una subclase de ImportError). El except captura ese error específico y muestra el mensaje.
+
+# Ejercicio 19 - Jerarquia de excepciones
+
+```python
+try:
+    # Código que podría generar diferentes tipos de excepciones
+    resultado = int("abc") / 0
+except Exception as e:
+    print(f"Se produjo un error:{type(e).__name__}")
+    print(f"Descripción:{e}")
+```
+## Salida
+![Salida ejemplo 19](images/captura19.png)
+
+## Explicación
+El código intenta convertir "abc" a entero. Eso genera un ValueError, que es una subclase de Exception. Como el except captura Exception (la clase padre), atrapa cualquier excepción que herede de ella. Muestra el tipo específico del error (ValueError) y su descripción. La división entre cero nunca se alcanza porque el error ocurre antes.
+
