@@ -309,3 +309,17 @@ except KeyError:
 
 ## Explicación
 El diccionario tiene las claves "nombre" y "edad", pero no tiene la clave "telefono". Al intentar acceder a ella, Python genera un KeyError. El except captura el error y muestra el mensaje.
+
+# Ejemplo 13 - Excepciones relacionadas con archivos: FileNotFoundError
+
+try:
+    with open("archivo_inexistente.txt", "r") as archivo:
+        contenido = archivo.read()
+except FileNotFoundError:
+    print("El archivo no existe")
+
+## Salida
+(No se muestra nada)
+
+## Explicación
+No se ve ningún mensaje, significa que el archivo "archivo_inexistente.txt" ya existe. El programa lo abre sin problemas y no ocurre ninguna excepción, por eso el except no se ejecuta y no se imprime nada. Para que aparezca el mensaje, el archivo no debe existir.
