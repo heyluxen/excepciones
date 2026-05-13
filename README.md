@@ -415,3 +415,19 @@ except Exception as e:
 ## Explicación
 El código intenta convertir "abc" a entero. Eso genera un ValueError, que es una subclase de Exception. Como el except captura Exception (la clase padre), atrapa cualquier excepción que herede de ella. Muestra el tipo específico del error (ValueError) y su descripción. La división entre cero nunca se alcanza porque el error ocurre antes.
 
+# Ejemplo 20 - Identificando el tipo de excepción
+
+```python
+try:
+    # Código que podría fallar
+    resultado = eval(input("Introduce una expresión: "))
+except Exception as e:
+    print(f"Error de tipo:{type(e).__name__}")
+    print(f"Descripción:{e}")
+```
+
+## Salida
+![Salida ejemplo 20](images/captura20.png)
+
+## Explicación
+eval() intenta ejecutar lo que el usuario escriba. Si ocurre cualquier error, el except captura Exception (la clase padre de casi todas las excepciones) y muestra el nombre exacto del error y su descripción. Es útil para descubrir qué excepciones específicas manejar después.
