@@ -263,3 +263,17 @@ except TypeError:
 
 ## Explicación
 El programa intenta sumar un string "42" y un número entero 10. Python no permite sumar tipos de datos diferentes, por lo que genera un TypeError. El except captura el error y muestra el mensaje.
+
+# Ejemplo 10 - Excepciones relacionadas con tipos de datos: ValueError
+
+```python
+try:
+    numero = int("abc")  # Intentar convertir una cadena no numérica a entero
+except ValueError:
+    print("La cadena no representa un número válido")
+```
+## Salida
+![Salida ejemplo 10](images/captura10.png)
+
+## Explicación
+El programa intenta convertir el texto "abc" a número entero. Como no es un número válido, Python genera un ValueError. El except captura el error y muestra el mensaje.
