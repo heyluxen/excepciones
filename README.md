@@ -233,3 +233,19 @@ except ZeroDivisionError:
 
 ## Explicación
 El programa intenta dividir 5 entre 0. Como dividir por cero no está permitido, Python genera un ZeroDivisionError. El bloque except captura específicamente ese error y muestra el mensaje "No es posible dividir entre cero". Sin el try-except, el programa habría terminado con un mensaje de error rojo.
+
+# Ejemplo 8 - Tipos comunes: OverflowError
+
+```python
+try:
+    resultado = 10.0 ** 1000000  # Intentar calcular 10 elevado a un millón
+except OverflowError:
+    print("El número es demasiado grande para ser representado")
+```
+
+## Salida
+![Salida ejemplo 8](images/captura8.png)
+
+## Explicación
+El programa intenta calcular 10 elevado a un millón. Ese número es tan enorme que Python no puede representarlo, por lo que genera un OverflowError. El except captura el error y muestra el mensaje.
+
