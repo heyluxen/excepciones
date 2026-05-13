@@ -384,3 +384,17 @@ except ImportError:
 
 ## Explicación
 El programa intenta importar un módulo llamado "biblioteca_inexistente" que no existe en Python. Eso genera un ImportError. El except captura el error y muestra el mensaje.
+
+# Ejercicio 18 - Excepciones relacionadas con importaciones: ModuleNotFoundError
+
+```python
+try:
+    import modulo_que_no_existe
+except ModuleNotFoundError:
+    print("El módulo no existe")
+```
+## Salida
+![Salida ejemplo 18](images/captura18.png)
+
+## Explicación
+El programa intenta importar un módulo llamado "modulo_que_no_existe" que no está instalado ni existe en Python. Python genera ModuleNotFoundError (que es una subclase de ImportError). El except captura ese error específico y muestra el mensaje.
