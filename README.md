@@ -132,3 +132,41 @@ Dentro del except se usa "as e" para capturar el objeto de la excepción. La fun
 - Paso 3: Como FileNotFoundError está en la tupla, se ejecuta el except.
 - Paso 4: type(e).name devuelve "FileNotFoundError".
 Paso 5: e contiene el mensaje original del error.
+
+# Ejemplo 5 - Uso práctico en aplicaciones reales
+
+```python
+def obtener_edad():
+    while True:
+        try:
+            edad = int(input("¿Cuál es tu edad? "))
+            if edad < 0:
+                print("La edad no puede ser negativa.")
+                continue
+            return edad
+        except ValueError:
+            print("Por favor, introduce un número entero.")
+
+# Uso de la función
+edad_usuario = obtener_edad()
+print(f"Tu edad es:{edad_usuario}")
+```
+
+## Explicación
+Este código muestra un patrón muy común en programación: validar entrada de usuario hasta que sea correcta. El bucle while True se repite infinitamente hasta que se encuentra un return.
+
+El try intenta convertir la entrada del usuario a número entero. Si el usuario escribe algo que no es un número, se genera ValueError y el except muestra un mensaje de error. Como no hay return ni break, el bucle continúa preguntando nuevamente.
+
+Si la conversión es exitosa, se verifica que la edad no sea negativa. Si lo es, se muestra un mensaje y se usa continue para volver al inicio del bucle. Si la edad es válida, se ejecuta return y la función termina devolviendo ese valor.
+
+## Salida
+![salida ejemplo 5](images/captura5.png)
+
+## ¿Por qué da esa salida?
+
+- "dieciocho" no es un número, por eso el programa pide un número entero.
+
+- "-18" es un número pero es negativo, por eso el programa dice que la edad no puede ser negativa.
+
+- "18" es un número válido y positivo, por eso el programa muestra la edad y termina.
+
