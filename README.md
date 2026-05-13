@@ -356,3 +356,17 @@ except AttributeError:
 ## Explicación
 El programa intenta acceder al atributo "size" de un string. Los strings en Python no tienen un atributo llamado "size" (el correcto es len(texto) o el método .len()). Por eso Python genera un AttributeError. El except captura el error y muestra el mensaje.
 
+# Ejemplo 16 - Excepciones relacionadas con atributos y nombres: NameError
+
+```python
+try:
+    print(variable_no_definida)  # Intentar usar una variable que no existe
+except NameError:
+    print("La variable no está definida")
+```
+
+## Salida
+![Salida ejemplo 16](images/captura16.png)
+
+## Explicación
+El programa intenta imprimir una variable llamada "variable_no_definida" que nunca fue creada. Como no existe, Python genera un NameError. El except captura el error y muestra el mensaje.
