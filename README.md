@@ -277,3 +277,19 @@ except ValueError:
 
 ## Explicación
 El programa intenta convertir el texto "abc" a número entero. Como no es un número válido, Python genera un ValueError. El except captura el error y muestra el mensaje.
+
+# Ejemplo 11 - Excepciones relacionadas con índices y claves: IndexError
+
+```python
+try:
+    lista = [1, 2, 3]
+    elemento = lista[10]  # Intentar acceder a un índice que no existe
+except IndexError:
+    print("El índice está fuera del rango de la lista")
+```
+
+## Salida
+![Salida ejemplo 11](images/captura11.png)
+
+## Explicación
+La lista tiene solo 3 elementos, con índices 0, 1 y 2. Se intenta acceder al índice 10, que no existe. Python genera un IndexError. El except lo captura y muestra el mensaje.
