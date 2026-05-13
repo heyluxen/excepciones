@@ -370,3 +370,17 @@ except NameError:
 
 ## Explicación
 El programa intenta imprimir una variable llamada "variable_no_definida" que nunca fue creada. Como no existe, Python genera un NameError. El except captura el error y muestra el mensaje.
+
+# Ejemplo 17 - Excepciones relacionadas con importaciones: ImportError
+
+```python
+try:
+    import biblioteca_inexistente
+except ImportError:
+    print("No se pudo importar el módulo")
+```
+## Salida
+![Salida ejemplo 17](images/captura17.png)
+
+## Explicación
+El programa intenta importar un módulo llamado "biblioteca_inexistente" que no existe en Python. Eso genera un ImportError. El except captura el error y muestra el mensaje.
