@@ -567,3 +567,36 @@ Abre un archivo llamado "registro.txt" para escribir. Escribe "Operación inicia
 
 ## Explicación del manejo de excepciones
 El bloque finally se ejecuta siempre, haya o no excepción. Aquí se usa para cerrar el archivo y mostrar el mensaje final, garantizando que no quede el archivo abierto y que el usuario sepa que el proceso terminó.
+
+# Ejemplo 26 - Casos de uso prácticos para finally: Liberar recursos
+
+```python
+conexion = None
+try:
+    conexion = conectar_a_base_de_datos()
+    datos = conexion.ejecutar_consulta("SELECT * FROM usuarios")
+    procesar_datos(datos)
+except ConexionError:
+    print("Error al conectar con la base de datos")
+except ConsultaError:
+    print("Error al ejecutar la consulta")
+finally:
+    if conexion:
+        conexion.cerrar()  # La conexión se cierra siempre
+```
+
+## ¿Qué hace el código?
+Intenta conectar a una base de datos, ejecutar una consulta y procesar los datos. Si falla la conexión (ConexionError) o la consulta (ConsultaError), muestra el error correspondiente. El bloque finally se ejecuta siempre: si la conexión se estableció (conexion no es None), la cierra, liberando el recurso.
+
+## Salida
+![Salida ejemplo 26](images/captura26.png)
+
+## Explicación del manejo de excepciones
+- try: código que puede fallar (conexión, consulta, procesamiento).
+
+- except ConexionError: se ejecuta si falla conectar_a_base_de_datos().
+
+- except ConsultaError: se ejecuta si falla ejecutar_consulta().
+
+- finally: asegura que conexion.cerrar() se ejecute siempre que la conexión se haya creado. Esto evita fugas de recursos.
+
