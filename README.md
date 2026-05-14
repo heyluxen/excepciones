@@ -941,3 +941,21 @@ def concatenar(texto, repeticiones):
 
 ## Explicación del manejo de excepciones
 Se lanza TypeError cuando el tipo de un argumento no es el esperado. Esto ayuda a detectar errores en tiempo de ejecución, como pasar un número en lugar de texto o viceversa. Quien llame a la función debe capturar TypeError para manejar estos casos.
+
+# Ejemplo 39 - Tipos de excepciones comunes para lanzar: RuntimeError
+
+```python
+def conectar_a_servidor():
+    if not hay_conexion_internet():
+        raise RuntimeError("No hay conexión a Internet")
+    # Código para conectar al servidor
+```
+
+## ¿Qué hace el código?
+Define una función conectar_a_servidor() que verifica si hay conexión a Internet llamando a una función hipotética hay_conexion_internet(). Si no hay conexión, lanza una excepción RuntimeError con el mensaje "No hay conexión a Internet". Si hay conexión, continuaría con el código para conectar al servidor (no mostrado).
+
+## Salida
+![Salida ejemplo 39](images/captura39.png)
+
+## Explicación del manejo de excepciones
+RuntimeError se usa para errores que no encajan en categorías más específicas y que solo pueden detectarse durante la ejecución (como la falta de conexión a Internet). No es un error de tipo o de valor, sino una condición del entorno. Quien llama a esta función debe capturar RuntimeError para manejarlo (por ejemplo, reintentar o mostrar un mensaje al usuario).
