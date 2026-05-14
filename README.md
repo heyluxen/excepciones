@@ -915,3 +915,29 @@ def establecer_edad(edad):
 - Se usa ValueError cuando el tipo es correcto (entero) pero el valor está fuera del rango permitido (negativo o mayor a 150).
 
 - Esta distinción ayuda a quien llama a la función a saber exactamente qué tipo de error ocurrió y manejarlo de forma diferente.
+
+# Ejemplo 38 - Tipos de excepciones comunes para lanzar: TypeError
+
+```python
+def concatenar(texto, repeticiones):
+    if not isinstance(texto, str):
+        raise TypeError("El primer argumento debe ser una cadena de texto")
+    if not isinstance(repeticiones, int):
+        raise TypeError("El segundo argumento debe ser un número entero")
+    return texto * repeticiones
+```
+
+## ¿Qué hace el código?
+- Define una función concatenar(texto, repeticiones) que valida los tipos de los argumentos:
+
+- Verifica que texto sea una cadena (str). Si no, lanza TypeError.
+
+- Verifica que repeticiones sea un entero (int). Si no, lanza TypeError.
+
+- Si ambos son del tipo correcto, devuelve el texto repetido repeticiones veces (usa el operador * de multiplicación de strings).
+
+## Salida
+![Salida ejemplo 38](images/captura38.png)
+
+## Explicación del manejo de excepciones
+Se lanza TypeError cuando el tipo de un argumento no es el esperado. Esto ayuda a detectar errores en tiempo de ejecución, como pasar un número en lugar de texto o viceversa. Quien llame a la función debe capturar TypeError para manejar estos casos.
