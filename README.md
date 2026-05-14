@@ -1009,3 +1009,40 @@ La función obtener_configuracion(archivo) intenta leer un archivo. Si no existe
 - raise ... from e vincula la excepción original como causa, mostrando ambas en el traceback. Esto es útil para depurar, ya que indica que el error original (archivo no encontrado) llevó al error de configuración.
 
 - Quien llame a la función capturará ConfigurationError, pero tendrá acceso a la causa original a través de __cause__.
+
+# Ejemplo 42 - Creando excepciones personalizadas
+
+```python
+class SaldoInsuficienteError(Exception):
+    """Se lanza cuando se intenta retirar más dinero del disponible."""
+
+    def __init__(self, saldo, cantidad):
+        self.saldo = saldo
+        self.cantidad = cantidad
+        self.deficit = cantidad - saldo
+        mensaje = f"No hay suficiente saldo. Saldo:{saldo}, Cantidad solicitada:{cantidad}"
+        super().__init__(mensaje)
+
+def retirar(cuenta, cantidad):
+    if cantidad > cuenta.saldo:
+        raise SaldoInsuficienteError(cuenta.saldo, cantidad)
+    cuenta.saldo -= cantidad
+    return cuenta.saldo
+```
+
+## ¿Qué hace el código?
+- Define una excepción personalizada llamada SaldoInsuficienteError que hereda de Exception. Esta excepción guarda el saldo actual, la cantidad solicitada y el déficit (cuánto falta). Al lanzarla, muestra un mensaje con esa información.
+
+- Luego define la función retirar(cuenta, cantidad). Si la cantidad a retirar es mayor que el saldo de la cuenta, lanza SaldoInsuficienteError. Si no, resta la cantidad y devuelve el nuevo saldo.
+
+## Salida
+![Salida ejemplo 42](images/captura42.png)
+
+## Explicación del manejo de excepciones
+- Las excepciones personalizadas permiten manejar errores específicos de tu dominio (como saldo insuficiente) de forma clara.
+
+- Al heredar de Exception, se comportan como cualquier excepción estándar.
+
+- El constructor (__init__) almacena información útil y genera un mensaje descriptivo.
+
+- Quien llame a retirar puede capturar SaldoInsuficienteError y acceder a atributos como saldo, cantidad, deficit para mostrar detalles o tomar decisiones.
