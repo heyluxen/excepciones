@@ -456,3 +456,30 @@ El código intenta hacer una solicitud HTTP a una URL falsa ("https://api.ejempl
 
 Esto ocurre porque la biblioteca requests no está instalada.
 
+# Ejemplo 22 - La cláusula else
+
+```python
+try:
+    numero = int(input("Introduce un número: "))
+    resultado = 100 / numero
+except ValueError:
+    print("Debes introducir un número válido.")
+except ZeroDivisionError:
+    print("No puedes dividir entre cero.")
+else:
+    print(f"El resultado es:{resultado}")
+    # Este código solo se ejecuta si no hubo excepciones
+```
+
+## ¿Qué hace el código?
+Pide un número al usuario, lo convierte a entero y divide 100 entre ese número. Si ocurre un error de conversión (ValueError) o de división entre cero (ZeroDivisionError), muestra un mensaje de error. Si no ocurre ninguna excepción, se ejecuta el bloque else y muestra el resultado de la división.
+
+## Salida
+![Salida ejemplo 22](images/captura22.png)
+
+## Explicación:
+- Con entrada "5": No hay excepciones. El bloque else se ejecuta y muestra el resultado 100/5 = 20.0.
+
+- Con entrada "0": La conversión a entero funciona, pero 100/0 lanza ZeroDivisionError. Se ejecuta el except correspondiente y muestra "No puedes dividir entre cero". El else no se ejecuta.
+
+- Con entrada "abc": int("abc") lanza ValueError. Se ejecuta el except ValueError y muestra "Debes introducir un número válido". El else tampoco se ejecuta.
