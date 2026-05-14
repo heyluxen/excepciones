@@ -628,3 +628,25 @@ Guarda el modo actual del sistema en modo_original. Luego intenta cambiar el sis
 
 ## ¿Por qué es útil?
 Es una buena práctica para mantener la consistencia del sistema. Por ejemplo, si un programa cambia una configuración crítica, debe asegurarse de devolverla a su estado original incluso si ocurre un error. El finally es el lugar ideal para esa limpieza.
+
+# Ejemplo 28 - Casos de uso prácticos para finally: Registrar finalización
+
+```python
+try:
+    registrar_inicio("tarea_diaria")
+    ejecutar_tarea_diaria()
+except Exception as e:
+    registrar_error("tarea_diaria", str(e))
+finally:
+    registrar_finalizacion("tarea_diaria")  # Siempre registramos que terminó
+```
+
+## ¿Qué hace el código?
+Registra el inicio de una tarea llamada "tarea_diaria", luego intenta ejecutarla. Si ocurre cualquier error (capturado con Exception), registra el error con su descripción. El bloque finally se ejecuta siempre y registra la finalización de la tarea, haya ocurrido un error o no.
+
+## Explicación del manejo de excepciones
+- try: ejecuta el registro de inicio y la tarea principal.
+
+- except Exception as e: captura cualquier excepción que herede de Exception (prácticamente todas las excepciones comunes). Registra el error.
+
+- finally: asegura que registrar_finalizacion() se ejecute siempre, sin importar si la tarea terminó bien o mal. Esto permite llevar un registro completo de cuándo comienza y termina un proceso, incluso cuando falla.
