@@ -723,3 +723,34 @@ Define una función que muestra el orden en que se ejecutan los bloques try, exc
 - El finally se ejecuta siempre, al final del bloque try-except-else.
 
 - Después de finally, continúa la ejecución normal (el print("5...")).
+
+# Ejemplo 31 -  Consideraciones importantes: Return en bloques try/except/else/finally
+
+```python
+def dividir(a, b):
+    try:
+        resultado = a / b
+        return resultado  # Este return no se ejecuta inmediatamente
+    except ZeroDivisionError:
+        print("Error: División por cero")
+        return None  # Este return tampoco se ejecuta inmediatamente
+    finally:
+        print("División finalizada")  # Esto se ejecuta antes de cualquier return
+        # Ahora sí se devuelve el valor correspondiente
+
+print(dividir(10, 2))  # Imprime "División finalizada" y luego 5.0
+print(dividir(10, 0))  # Imprime "Error: División por cero", "División finalizada" y luego None
+```
+
+## ¿Qué hace el código?
+La función dividir(a, b) intenta dividir a entre b. Si no hay error, devuelve el resultado. Si hay división entre cero (ZeroDivisionError), imprime un mensaje y devuelve None. En ambos casos, el bloque finally se ejecuta antes de que se devuelva el valor.
+
+## Salida
+![Salida ejemplo 31](images/captura31.png)
+
+## Explicación del manejo de excepciones
+- El bloque try contiene un return. Normalmente el return terminaría la función inmediatamente, pero la presencia de finally cambia el orden.
+
+- Si hay una excepción, se ejecuta el except, que también tiene un return.
+
+- En cualquier caso, antes de ejecutar el return correspondiente, Python ejecuta completamente el bloque finally.
