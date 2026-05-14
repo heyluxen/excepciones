@@ -1,0 +1,3 @@
+Operación iniciada
+Error: Valor no válido
+Operación finalizada

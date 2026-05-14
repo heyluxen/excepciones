@@ -539,3 +539,31 @@ Intenta obtener datos de una API y luego validar su formato. Si falla la conexi�
 - Cada tipo de error tiene su propio except para dar un mensaje específico.
 
 - El else se ejecuta solo cuando no ocurre ninguna excepción, lo que garantiza que datos y su formato son válidos. Así se evita anidar código dentro del try y se separa claramente la lógica normal del manejo de errores.
+
+# Ejemplo 25 - La cláusula finally
+
+```python
+try:
+    archivo = open("registro.txt", "w")
+    archivo.write("Operación iniciada\n")
+    # Código que podría generar una excepción
+    resultado = 10 / int(input("Introduce un número: "))
+    archivo.write(f"Resultado:{resultado}\n")
+except ZeroDivisionError:
+    archivo.write("Error: División por cero\n")
+except ValueError:
+    archivo.write("Error: Valor no válido\n")
+finally:
+    archivo.write("Operación finalizada\n")
+    archivo.close()  # El archivo se cierra siempre
+    print("Proceso completado")
+```
+
+## ¿Qué hace el código?
+Abre un archivo llamado "registro.txt" para escribir. Escribe "Operación iniciada". Pide un número al usuario, lo divide 10 entre ese número y escribe el resultado. Si ocurre división entre cero (ZeroDivisionError) o error de conversión (ValueError), escribe el error correspondiente. Finalmente, SIEMPRE escribe "Operación finalizada", cierra el archivo y muestra "Proceso completado".
+
+## Salida
+![Salida ejemplo 25](images/captura25.png)
+
+## Explicación del manejo de excepciones
+El bloque finally se ejecuta siempre, haya o no excepción. Aquí se usa para cerrar el archivo y mostrar el mensaje final, garantizando que no quede el archivo abierto y que el usuario sepa que el proceso terminó.
