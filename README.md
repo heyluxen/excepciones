@@ -600,3 +600,31 @@ Intenta conectar a una base de datos, ejecutar una consulta y procesar los datos
 
 - finally: asegura que conexion.cerrar() se ejecute siempre que la conexión se haya creado. Esto evita fugas de recursos.
 
+# Ejemplo 27 - Casos de uso prácticos para finally: Restaurar estados
+
+```python
+modo_original = sistema.obtener_modo()
+try:
+    sistema.cambiar_modo("mantenimiento")
+    realizar_actualizacion()
+except ActualizacionError:
+    print("La actualización falló")
+finally:
+    sistema.cambiar_modo(modo_original)  # Restauramos el modo original
+```
+
+## ¿Qué hace el código?
+Guarda el modo actual del sistema en modo_original. Luego intenta cambiar el sistema a modo "mantenimiento" y realizar una actualización. Si la actualización falla (se lanza ActualizacionError), muestra un mensaje. El bloque finally se ejecuta siempre y restaura el modo original del sistema, sin importar si la actualización fue exitosa o falló.
+
+## Salida
+![Salida ejemplo 27](images/captura27.png)
+
+## Explicación del manejo de excepciones
+- try: cambia el modo a "mantenimiento" y ejecuta la actualización.
+
+- except ActualizacionError: captura solo errores específicos de actualización y muestra un mensaje.
+
+- finally: restaura el modo original. Esto garantiza que el sistema nunca quede en modo "mantenimiento" si algo sale mal.
+
+## ¿Por qué es útil?
+Es una buena práctica para mantener la consistencia del sistema. Por ejemplo, si un programa cambia una configuración crítica, debe asegurarse de devolverla a su estado original incluso si ocurre un error. El finally es el lugar ideal para esa limpieza.
