@@ -830,7 +830,7 @@ Define una función que calcula la raíz cuadrada de un número. Si el número e
 ## Explicación del manejo de excepciones
 La función lanza una excepción cuando recibe un parámetro inválido (negativo). Esto evita que la función devuelva un valor incorrecto (como un número complejo) sin que el programa se dé cuenta. Quien llame a la función deberá capturar la excepción con try-except.
 
-# Ejemplo 35 - 
+# Ejemplo 35 - Cuándo lanzar excepciones: Estados imposibles
 
 ```python
 python
@@ -851,3 +851,38 @@ La función procesar_respuesta(respuesta) recibe un objeto respuesta que tiene u
 
 ## Explicación del manejo de excepciones
 Se usa raise para lanzar una excepción cuando el programa llega a un estado que no debería ocurrir (código de respuesta desconocido). Esto ayuda a detectar errores de lógica o cambios inesperados en la API. Quien llame a esta función deberá capturar RuntimeError para manejarlo adecuadamente.
+
+# Ejemplo 36 - Cuándo lanzar excepciones: Precondiciones no cumplidas
+
+```python
+def retirar_dinero(cuenta, cantidad):
+    if not cuenta.esta_activa:
+        raise ValueError("La cuenta no está activa")
+
+    if cantidad <= 0:
+        raise ValueError("La cantidad debe ser positiva")
+
+    if cantidad > cuenta.saldo:
+        raise ValueError("Saldo insuficiente")
+
+    cuenta.saldo -= cantidad
+    return cuenta.saldo
+```
+
+## ¿Qué hace el código?
+Define una función retirar_dinero(cuenta, cantidad) que verifica varias precondiciones antes de realizar el retiro:
+
+- La cuenta debe estar activa.
+
+- La cantidad a retirar debe ser positiva.
+
+- La cantidad no debe superar el saldo disponible.
+
+- Si alguna precondición falla, lanza un ValueError con un mensaje específico. Si todas se cumplen, resta la cantidad al saldo y devuelve el nuevo saldo.
+
+## Salida
+![Salida ejemplo 36](images/captura36.png)
+
+## Explicación del manejo de excepciones
+Se lanzan excepciones cuando el programa recibe datos inválidos o el estado no permite la operación. Esto evita que la función continúe con valores incorrectos (por ejemplo, retirar dinero de una cuenta inactiva). Quien llame a la función deberá capturar ValueError y mostrar el mensaje correspondiente.
+
