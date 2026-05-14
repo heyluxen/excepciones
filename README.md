@@ -483,3 +483,30 @@ Pide un número al usuario, lo convierte a entero y divide 100 entre ese número
 - Con entrada "0": La conversión a entero funciona, pero 100/0 lanza ZeroDivisionError. Se ejecuta el except correspondiente y muestra "No puedes dividir entre cero". El else no se ejecuta.
 
 - Con entrada "abc": int("abc") lanza ValueError. Se ejecuta el except ValueError y muestra "Debes introducir un número válido". El else tampoco se ejecuta.
+
+# Ejemplo 23 - Casos de usos practicos para else: Else con archivos
+
+```python
+try:
+    archivo = open("datos.txt", "r")
+    contenido = archivo.read()
+except FileNotFoundError:
+    print("El archivo no existe.")
+    contenido = ""
+else:
+    print("Archivo leído correctamente.")
+    archivo.close()  # Solo cerramos si se abrió con éxito
+```
+
+## ¿Qué hace el código?
+Intenta abrir y leer el archivo "datos.txt". Si el archivo no existe, entra al except y asigna contenido = "". Si el archivo existe y se lee sin problemas, entra al else, muestra un mensaje de éxito y cierra el archivo.
+
+## Salida
+![Salida ejemplo 23](images/captura23.png)
+
+## Explicación del manejo de excepciones
+- El try contiene las operaciones que pueden fallar (abrir y leer el archivo).
+
+- El except captura específicamente FileNotFoundError (si el archivo no existe) y evita que el programa se rompa.
+
+- El else se ejecuta solo si no ocurrió ninguna excepción en el try. Por eso dentro del else se puede cerrar el archivo con seguridad, porque sabemos que se abrió correctamente.
