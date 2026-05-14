@@ -431,3 +431,28 @@ except Exception as e:
 
 ## Explicación
 eval() intenta ejecutar lo que el usuario escriba. Si ocurre cualquier error, el except captura Exception (la clase padre de casi todas las excepciones) y muestra el nombre exacto del error y su descripción. Es útil para descubrir qué excepciones específicas manejar después.
+
+# Ejemplo 21 - Excepciones en bibliotecas externas
+
+```python
+import requests
+
+try:
+    respuesta = requests.get("https://api.ejemplo.com/datos", timeout=1)
+    respuesta.raise_for_status()  # Lanza una excepción si el código de estado HTTP es un error
+except requests.exceptions.ConnectionError:
+    print("No se pudo conectar al servidor")
+except requests.exceptions.Timeout:
+    print("La solicitud excedió el tiempo de espera")
+except requests.exceptions.HTTPError as e:
+    print(f"Error HTTP:{e}")
+```
+
+## Explicación
+El código intenta hacer una solicitud HTTP a una URL falsa ("https://api.ejemplo.com/datos") usando la biblioteca requests.
+
+## Salida
+![Salida ejemplo 21](images/captura21.png)
+
+Esto ocurre porque la biblioteca requests no está instalada.
+
