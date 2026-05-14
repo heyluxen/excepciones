@@ -959,3 +959,30 @@ Define una función conectar_a_servidor() que verifica si hay conexión a Intern
 
 ## Explicación del manejo de excepciones
 RuntimeError se usa para errores que no encajan en categorías más específicas y que solo pueden detectarse durante la ejecución (como la falta de conexión a Internet). No es un error de tipo o de valor, sino una condición del entorno. Quien llama a esta función debe capturar RuntimeError para manejarlo (por ejemplo, reintentar o mostrar un mensaje al usuario).
+
+# Ejemplo 40 - Relanzando excepciones: Procesar archivo
+
+```python
+def procesar_archivo(ruta):
+    try:
+        with open(ruta, 'r') as archivo:
+            return archivo.read()
+    except FileNotFoundError as e:
+        print(f"Registrando error:{e}")
+        raise  # Relanza la última excepción
+```
+
+## ¿Qué hace el código?
+La función procesar_archivo(ruta) intenta abrir y leer un archivo. Si el archivo no existe (FileNotFoundError), captura la excepción, imprime un mensaje de registro y luego usa raise sin argumentos para relanzar la misma excepción hacia el código que llamó a la función.
+
+## Salida
+![Salida ejemplo 40](images/captura40.png)
+
+## Explicación del manejo de excepciones
+- El bloque except captura FileNotFoundError.
+
+- Se realiza una acción de registro (por ejemplo, imprimir o guardar el error).
+
+- raise sin argumentos vuelve a lanzar la última excepción capturada, para que sea manejada en un nivel superior.
+
+- Esto permite que la función maneje parte del error (como registrarlo) pero deje que el llamador decida cómo responder (por ejemplo, mostrar un mensaje al usuario).
