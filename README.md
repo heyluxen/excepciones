@@ -782,3 +782,32 @@ El bloque try genera un ZeroDivisionError. El except lo captura y muestra "Captu
 - El finally se ejecuta después, incluso si ya se manejó una excepción.
 
 - Si dentro de finally ocurre otra excepción, esta nueva excepción reemplaza a cualquier excepción anterior (manejada o no). El programa lanzará el ValueError, y el ZeroDivisionError original ya no se verá.
+
+# Ejemplo 33 - Lanzar excepciones: Usando la instruccion raise
+
+```python
+def dividir(a, b):
+    if b == 0:
+        raise ZeroDivisionError("No se puede dividir entre cero")
+    return a / b
+
+try:
+    resultado = dividir(10, 0)
+except ZeroDivisionError as e:
+    print(f"Error:{e}")
+```
+
+## ¿Qué hace el código?
+Define una función dividir(a, b) que primero verifica si b es cero. Si lo es, lanza (raise) una excepción ZeroDivisionError con un mensaje personalizado "No se puede dividir entre cero". Si b no es cero, realiza la división normalmente. Luego, en el bloque try-except, se llama a la función con (10, 0), se captura la excepción lanzada y se imprime el mensaje de error.
+
+## Salida
+![Salida ejemplo 33](images/captura33.png)
+
+## Explicación del manejo de excepciones
+- Se usa raise para lanzar una excepción de forma intencional cuando se detecta una condición inválida (divisor igual a cero).
+
+- El mensaje personalizado se pasa como argumento al crear la excepción.
+
+- En el try se llama a la función que puede lanzar la excepción.
+
+- El except captura específicamente ZeroDivisionError y muestra el mensaje asociado (e).
