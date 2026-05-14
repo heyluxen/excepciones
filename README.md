@@ -1,3 +1,13 @@
+Aprendiz: Valentina Correa Hoyos
+# Manejo de Excepciones en Python
+## Introducción
+
+Las excepciones son errores que ocurren durante la ejecución de un programa, incluso cuando la sintaxis es correcta. Si no se manejan, estos errores detienen el programa abruptamente. Python proporciona un mecanismo robusto para capturar y gestionar excepciones mediante las palabras clave try, except, else, finally y raise.
+
+Aquí se documentan 43 ejemplos prácticos que cubren desde la estructura básica try-except hasta la creación de excepciones personalizadas, pasando por tipos comunes de errores, buenas prácticas, y el uso de finally para liberar recursos. Finalmente, se incluye el reto “dividir_numeros” que integra todos los conceptos.
+
+Cada ejemplo incluye su código, una explicación del manejo de excepciones, la salida obtenida (captura de pantalla) y, cuando corresponde, el porqué de esa salida.
+
 # Ejemplo 1 - Try-Except básico con división entre cero
 
 ```python
@@ -1046,3 +1056,137 @@ def retirar(cuenta, cantidad):
 - El constructor (__init__) almacena información útil y genera un mensaje descriptivo.
 
 - Quien llame a retirar puede capturar SaldoInsuficienteError y acceder a atributos como saldo, cantidad, deficit para mostrar detalles o tomar decisiones.
+
+# Ejemplo 43 - Ejemplo práctico: Validación de entrada de usuario
+
+```python
+def obtener_edad():
+    while True:
+        try:
+            entrada = input("Introduce tu edad: ")
+
+            if not entrada.strip():
+                raise ValueError("La entrada no puede estar vacía")
+
+            edad = int(entrada)
+
+            if edad < 0:
+                raise ValueError("La edad no puede ser negativa")
+
+            if edad > 120:
+                raise ValueError("La edad parece demasiado alta")
+
+            return edad
+
+        except ValueError as e:
+            if str(e).startswith("invalid literal for int"):
+                print("Por favor, introduce un número válido")
+            else:
+                print(f"Error:{e}")
+
+# Uso
+try:
+    edad_usuario = obtener_edad()
+    print(f"Tu edad es:{edad_usuario}")
+except KeyboardInterrupt:
+    print("\nOperación cancelada por el usuario")
+```
+
+## ¿Qué hace el código?
+Pide al usuario que introduzca su edad. Valida que:
+
+- No esté vacío (lanza ValueError con mensaje "La entrada no puede estar vacía")
+
+- Sea un número entero (si no, int() lanza ValueError)
+
+- No sea negativo (lanza ValueError con mensaje "La edad no puede ser negativa")
+
+- No sea mayor a 120 (lanza ValueError con mensaje "La edad parece demasiado alta")
+
+- Si todo es correcto, devuelve la edad y la muestra. Si el usuario cancela con Ctrl+C, se captura KeyboardInterrupt y termina el programa. El bucle while True sigue pidiendo hasta que la entrada sea válida.
+
+![Salida ejemplo 43](images/captura43.png)
+
+## Explicación del manejo de excepciones
+- Se usa raise para lanzar ValueError personalizados cuando se detectan condiciones inválidas (entrada vacía, edad negativa, edad > 120).
+
+- El bloque except ValueError as e captura cualquier ValueError, tanto los lanzados por raise como el que pueda lanzar int() si la entrada no es numérica.
+
+- Dentro del except, se distingue el origen del error: si el mensaje comienza con "invalid literal for int", significa que int() falló (entrada no numérica), y muestra "Por favor, introduce un número válido". En caso contrario, muestra el mensaje original del error lanzado (por ejemplo, "La edad no puede ser negativa").
+
+- El bucle se repite hasta que se introduce un valor válido.
+
+- Finalmente, se captura KeyboardInterrupt fuera de la función para permitir salir del programa con Ctrl+C sin mostrar un error feo.
+
+# Reto excepciones
+
+```python
+def dividir_numeros():
+    try:
+        # Solicitar al usuario que introduzca dos números
+        num1 = input("Introduce el primer número: ")
+        num2 = input("Introduce el segundo número: ")
+        
+        # Convertir las entradas a números enteros
+        a = int(num1)
+        b = int(num2)
+        
+        # Realizar la división del primer número entre el segundo
+        resultado = a / b
+        
+        # Devolver el resultado de la división (opcional, se puede imprimir)
+        print(f"El resultado es: {resultado}")
+        return resultado
+    
+    except ValueError:
+        print("Error: Debes introducir un número válido")
+    
+    except ZeroDivisionError:
+        print("Error: No es posible dividir entre cero")
+    
+    finally:
+        print("Operación finalizada")
+
+# Llamada a la función
+dividir_numeros()
+```
+
+## Explicación
+- try: Se piden los dos números, se convierten a enteros y se dividen. Si todo va bien, se imprime el resultado y se devuelve.
+
+- except ValueError: Captura el error cuando int() no puede convertir (por ejemplo, letras o vacío). Muestra el mensaje correspondiente.
+
+- except ZeroDivisionError: Captura la división entre cero. Muestra su mensaje.
+
+- finally: Siempre se ejecuta, mostrando "Operación finalizada" tanto si hubo error como si no.
+
+## Salida
+![Salida reto](images/capturaReto.png)
+
+## Explicación primera salida
+
+- int("10") convierte a 10, int("2") convierte a 2.
+
+- No ocurre ninguna excepción.
+
+- Se calcula 10 / 2 = 5.0 y se imprime.
+
+- Después de try (sin errores), se salta los except y se ejecuta finally, que imprime "Operación finalizada".
+
+- return devuelve el valor pero el programa ya terminó.
+
+## Explicación segunda salida
+
+- En Python, dividir entre cero no está permitido y lanza una excepción ZeroDivisionError.
+
+- El programa abandona inmediatamente el bloque try (no ejecuta print(f"El resultado es:...") ni el return).
+
+- Como ocurrió un ZeroDivisionError, entra en el bloque except ZeroDivisionError.
+
+- Dentro de ese except se ejecuta print("Error: No es posible dividir entre cero").
+
+- Después de manejar la excepción, el flujo pasa al bloque finally (porque finally se ejecuta siempre).
+
+- En finally se ejecuta print("Operación finalizada").
+
+- El programa termina. Nunca se imprime ningún resultado de división, solo los dos mensajes de error y finalización.
