@@ -689,3 +689,37 @@ finally:
 - else: se ejecuta solo si el try terminó sin excepciones (el archivo existía y se leyó). Aquí se muestra el contenido.
 
 - finally: se ejecuta siempre, independientemente de lo que pasó. Garantiza que el archivo se cierre, evitando fugas de recursos. También muestra el mensaje de finalización.
+
+# Ejemplo 30 - Orden de ejecución
+
+```python
+def demostrar_orden():
+    try:
+        print("1. Ejecutando bloque try")
+        # x = 1 / 0  # Descomentar para generar una excepción
+    except ZeroDivisionError:
+        print("2. Ejecutando bloque except")
+    else:
+        print("3. Ejecutando bloque else")
+    finally:
+        print("4. Ejecutando bloque finally")
+    
+    print("5. Continuando después del bloque try")
+
+demostrar_orden()
+```
+
+## ¿Qué hace el código?
+Define una función que muestra el orden en que se ejecutan los bloques try, except, else y finally. En este caso, como no hay ninguna excepción (la división entre cero está comentada), el flujo es: se ejecuta try, luego else (porque no hubo excepción), luego finally, y finalmente la línea fuera del bloque.
+
+## Salida
+![Salida ejemplo 30](images/captura30.png)
+
+## Explicación del manejo de excepciones
+- El bloque try se ejecuta primero.
+
+- Como no ocurre ninguna excepción, se salta el except y se ejecuta el else.
+
+- El finally se ejecuta siempre, al final del bloque try-except-else.
+
+- Después de finally, continúa la ejecución normal (el print("5...")).
