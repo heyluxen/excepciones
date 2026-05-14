@@ -811,3 +811,22 @@ Define una función dividir(a, b) que primero verifica si b es cero. Si lo es, l
 - En el try se llama a la función que puede lanzar la excepción.
 
 - El except captura específicamente ZeroDivisionError y muestra el mensaje asociado (e).
+
+# Ejemplo 34 - Lanzar excepciones: Validación de parametros
+
+```python
+def calcular_raiz_cuadrada(numero):
+    if numero < 0:
+        raise ValueError("No se puede calcular la raíz cuadrada de un número negativo")
+    return numero ** 0.5
+```
+
+## ¿Qué hace el código?
+Define una función que calcula la raíz cuadrada de un número. Si el número es negativo, lanza un ValueError con un mensaje personalizado. Si es positivo o cero, devuelve la raíz.
+
+## Salida
+![Salida ejemplo 34](images/captura34.png)
+
+## Explicación del manejo de excepciones
+La función lanza una excepción cuando recibe un parámetro inválido (negativo). Esto evita que la función devuelva un valor incorrecto (como un número complejo) sin que el programa se dé cuenta. Quien llame a la función deberá capturar la excepción con try-except.
+
