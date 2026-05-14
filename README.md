@@ -650,3 +650,42 @@ Registra el inicio de una tarea llamada "tarea_diaria", luego intenta ejecutarla
 - except Exception as e: captura cualquier excepción que herede de Exception (prácticamente todas las excepciones comunes). Registra el error.
 
 - finally: asegura que registrar_finalizacion() se ejecute siempre, sin importar si la tarea terminó bien o mal. Esto permite llevar un registro completo de cuándo comienza y termina un proceso, incluso cuando falla.
+
+# Ejemplo 29 - Combinando else y finally
+
+```python
+try:
+    archivo = open("datos.txt", "r")
+    contenido = archivo.read()
+except FileNotFoundError:
+    print("El archivo no existe, se creará uno nuevo.")
+    archivo = open("datos.txt", "w")
+    archivo.write("Archivo creado automáticamente")
+else:
+    print(f"Contenido leído:{contenido}")
+    # Este código solo se ejecuta si no hubo excepciones
+finally:
+    print("Operación de archivo completada.")
+    archivo.close()  # El archivo se cierra siempre, se haya abierto para leer o escribir
+```
+
+## ¿Qué hace el código?
+- Intenta abrir y leer el archivo "datos.txt".
+
+- Si el archivo NO existe (FileNotFoundError), lo crea en modo escritura y escribe un mensaje.
+
+- Si el archivo SÍ existe y se lee sin problemas, el bloque else muestra su contenido.
+
+- El bloque finally se ejecuta siempre: imprime "Operación de archivo completada." y cierra el archivo (tanto si se abrió para leer como si se creó para escribir).
+
+## Salida
+![Salida ejemplo 29](images/captura29.png)
+
+## Explicación del manejo de excepciones
+- try: código que puede fallar (abrir y leer).
+
+- except FileNotFoundError: solo captura la ausencia del archivo. En lugar de mostrar un error, crea el archivo.
+
+- else: se ejecuta solo si el try terminó sin excepciones (el archivo existía y se leyó). Aquí se muestra el contenido.
+
+- finally: se ejecuta siempre, independientemente de lo que pasó. Garantiza que el archivo se cierre, evitando fugas de recursos. También muestra el mensaje de finalización.
