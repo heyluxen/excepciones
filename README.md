@@ -886,3 +886,32 @@ Define una función retirar_dinero(cuenta, cantidad) que verifica varias precond
 ## Explicación del manejo de excepciones
 Se lanzan excepciones cuando el programa recibe datos inválidos o el estado no permite la operación. Esto evita que la función continúe con valores incorrectos (por ejemplo, retirar dinero de una cuenta inactiva). Quien llame a la función deberá capturar ValueError y mostrar el mensaje correspondiente.
 
+# Ejemplo 37 - Tipos de excepciones comunes para lanzar: ValueError
+
+```python
+def establecer_edad(edad):
+    if not isinstance(edad, int):
+        raise TypeError("La edad debe ser un número entero")
+    if edad < 0 or edad > 150:
+        raise ValueError("La edad debe estar entre 0 y 150 años")
+    return edad
+```
+
+## ¿Qué hace el código?
+- Define una función establecer_edad(edad) que valida el argumento:
+
+- Primero verifica si edad es de tipo int. Si no lo es, lanza un TypeError con un mensaje apropiado.
+
+- Luego verifica si edad está entre 0 y 150 (inclusive). Si está fuera de ese rango, lanza un ValueError con un mensaje específico.
+
+- Si pasa ambas validaciones, devuelve la edad.
+
+## Salida
+![Salida ejemplo 37](images/captura37.png)
+
+## Explicación del manejo de excepciones
+- Se usa TypeError cuando el tipo del argumento es incorrecto (se esperaba un entero y se recibió, por ejemplo, un string o un float).
+
+- Se usa ValueError cuando el tipo es correcto (entero) pero el valor está fuera del rango permitido (negativo o mayor a 150).
+
+- Esta distinción ayuda a quien llama a la función a saber exactamente qué tipo de error ocurrió y manejarlo de forma diferente.
