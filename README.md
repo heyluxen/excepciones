@@ -986,3 +986,26 @@ La función procesar_archivo(ruta) intenta abrir y leer un archivo. Si el archiv
 - raise sin argumentos vuelve a lanzar la última excepción capturada, para que sea manejada en un nivel superior.
 
 - Esto permite que la función maneje parte del error (como registrarlo) pero deje que el llamador decida cómo responder (por ejemplo, mostrar un mensaje al usuario).
+
+# Ejemplo 41 - Relanzando excepciones: Obtener configuración
+
+```python
+def obtener_configuracion(archivo):
+    try:
+        with open(archivo, 'r') as f:
+            return f.read()
+    except FileNotFoundError as e:
+        raise ConfigurationError(f"Archivo de configuración no encontrado:{archivo}") from e
+```
+
+## ¿Qué hace el código?
+La función obtener_configuracion(archivo) intenta leer un archivo. Si no existe (FileNotFoundError), captura la excepción original e y lanza una nueva excepción personalizada ConfigurationError, manteniendo la excepción original como la "causa" mediante from e.
+
+![Salida ejemplo 41](images/captura41.png)
+
+## Explicación del manejo de excepciones
+- ConfigurationError debe ser una excepción definida previamente (por ejemplo, class ConfigurationError(Exception): pass).
+
+- raise ... from e vincula la excepción original como causa, mostrando ambas en el traceback. Esto es útil para depurar, ya que indica que el error original (archivo no encontrado) llevó al error de configuración.
+
+- Quien llame a la función capturará ConfigurationError, pero tendrá acceso a la causa original a través de __cause__.
