@@ -510,3 +510,32 @@ Intenta abrir y leer el archivo "datos.txt". Si el archivo no existe, entra al e
 - El except captura específicamente FileNotFoundError (si el archivo no existe) y evita que el programa se rompa.
 
 - El else se ejecuta solo si no ocurrió ninguna excepción en el try. Por eso dentro del else se puede cerrar el archivo con seguridad, porque sabemos que se abrió correctamente.
+
+# Ejemplo 24 - Casos de usos practicos para else: Else con multiples operaciones
+
+```python
+try:
+        datos = obtener_datos_de_api()
+        validar_formato(datos)
+except ConexionError:
+    print("No se pudo conectar con el servidor.")
+except FormatoInvalidoError:
+    print("Los datos recibidos tienen un formato incorrecto.")
+else:
+    # Solo procesamos si obtuvimos y validamos los datos correctamente
+    resultados = procesar_datos(datos)
+    guardar_resultados(resultados)
+```
+
+## ¿Qué hace el código?
+Intenta obtener datos de una API y luego validar su formato. Si falla la conexión (ConexionError), muestra un mensaje. Si falla la validación (FormatoInvalidoError), muestra otro mensaje. Si ambas operaciones tienen éxito, entonces en el else procesa y guarda los datos.
+
+## Salida
+![Salida ejemplo 24](images/captura24.png)
+
+## Explicación del manejo de excepciones
+- El bloque try agrupa las dos operaciones que podrían fallar (obtener datos y validar).
+
+- Cada tipo de error tiene su propio except para dar un mensaje específico.
+
+- El else se ejecuta solo cuando no ocurre ninguna excepción, lo que garantiza que datos y su formato son válidos. Así se evita anidar código dentro del try y se separa claramente la lógica normal del manejo de errores.
