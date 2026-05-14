@@ -754,3 +754,31 @@ La función dividir(a, b) intenta dividir a entre b. Si no hay error, devuelve e
 - Si hay una excepción, se ejecuta el except, que también tiene un return.
 
 - En cualquier caso, antes de ejecutar el return correspondiente, Python ejecuta completamente el bloque finally.
+
+# Ejemplo 32 - Consideraciones importantes: Excepciones en finally
+
+```python
+try:
+    1 / 0  # Genera ZeroDivisionError
+except ZeroDivisionError:
+    print("Capturada división por cero")
+    # La excepción ha sido manejada
+finally:
+    # Si descomentas la siguiente línea, el ZeroDivisionError original se perderá
+    # y será reemplazado por este ValueError
+    # int("abc")  # Genera ValueError
+    print("Bloque finally ejecutado")
+```
+
+## ¿Qué hace el código?
+El bloque try genera un ZeroDivisionError. El except lo captura y muestra "Capturada división por cero". Luego se ejecuta el finally, que imprime "Bloque finally ejecutado". No hay excepción en finally, todo funciona normalmente.
+
+## Salida
+![Salida ejemplo 32](images/captura32.png)
+
+## Explicación del manejo de excepciones
+- El bloque except captura y maneja el ZeroDivisionError, evitando que termine el programa.
+
+- El finally se ejecuta después, incluso si ya se manejó una excepción.
+
+- Si dentro de finally ocurre otra excepción, esta nueva excepción reemplaza a cualquier excepción anterior (manejada o no). El programa lanzará el ValueError, y el ZeroDivisionError original ya no se verá.
