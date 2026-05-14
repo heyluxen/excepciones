@@ -812,7 +812,7 @@ Define una función dividir(a, b) que primero verifica si b es cero. Si lo es, l
 
 - El except captura específicamente ZeroDivisionError y muestra el mensaje asociado (e).
 
-# Ejemplo 34 - Lanzar excepciones: Validación de parametros
+# Ejemplo 34 - Cuándo lanzar excepciones: Validación de parametros
 
 ```python
 def calcular_raiz_cuadrada(numero):
@@ -830,3 +830,24 @@ Define una función que calcula la raíz cuadrada de un número. Si el número e
 ## Explicación del manejo de excepciones
 La función lanza una excepción cuando recibe un parámetro inválido (negativo). Esto evita que la función devuelva un valor incorrecto (como un número complejo) sin que el programa se dé cuenta. Quien llame a la función deberá capturar la excepción con try-except.
 
+# Ejemplo 35 - 
+
+```python
+python
+def procesar_respuesta(respuesta):
+    if respuesta.codigo == 200:
+        return respuesta.datos
+    elif respuesta.codigo == 404:
+        return None
+    else:
+        raise RuntimeError(f"Código de respuesta no manejado:{respuesta.codigo}")
+```
+
+## ¿Qué hace el código?
+La función procesar_respuesta(respuesta) recibe un objeto respuesta que tiene un atributo codigo. Si el código es 200 (éxito), devuelve los datos. Si es 404 (no encontrado), devuelve None. Para cualquier otro código no contemplado (estado imposible o no manejado), lanza una excepción RuntimeError con un mensaje indicando el código recibido.
+
+## Salida
+![Salida ejemplo 35](images/captura35.png)
+
+## Explicación del manejo de excepciones
+Se usa raise para lanzar una excepción cuando el programa llega a un estado que no debería ocurrir (código de respuesta desconocido). Esto ayuda a detectar errores de lógica o cambios inesperados en la API. Quien llame a esta función deberá capturar RuntimeError para manejarlo adecuadamente.
